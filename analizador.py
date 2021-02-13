@@ -1,9 +1,18 @@
 listaABC=['A','B','C','D','E','F','G','H','I','K','L','M','Ñ','O','P','Q','R','S','T','U','V',
            'W','X','Y','Z']
-lista=[]           
-lista_buscar=[]
-def analizar(cadena):
+lista=[]  
+lista_contador=[] 
+lista_identificador=[] 
+lista_numeros_global=[] 
+lista_ordenado=[] 
+lista_busqueda=[]
+numeros_busqueda=[]          
+
+def analizar(cadena,contador):
 	##array_identificador=cadena.split('=')
+	lista_numeros=[]
+	contador_posicion=0
+	posicion=""
 	cajon=""
 	cajon1=""
 	cajon2=""
@@ -22,7 +31,6 @@ def analizar(cadena):
 				paso1=False
 				paso2=True
 				cajon=cajon+":"
-			
 			else:
 				cajon=cajon+caracter
 		elif paso2==True:
@@ -30,33 +38,54 @@ def analizar(cadena):
 			if verificar==True:
 				paso2=False
 				if caracter=="O":
-					cajon3=cajon3+caracter
+					cajon3=cajon3
 					paso3=True
 				elif caracter=="B":
-					cajon4=cajon4+caracter
+					cajon4=cajon4
 					paso4=True
-			else:	
-				cajon2=cajon2+caracter
+			else:
+				if caracter==",":
+					lista_numeros.append(int(cajon2))
+					cajon2=""
+				else:
+					cajon2=cajon2+caracter
 		elif paso3==True:
 			if caracter=="B":
 				paso3=False
 				paso4=True
-				cajon4=cajon4+caracter
 			else:
-				cajon3=cajon3+caracter
 				cajon3="ORDENADOS"
 		elif paso4==True:
 			verificar2=caracter.isdigit()
 			if verificar2==True:
 				cajon6=cajon6+caracter
 			else:	
-				cajon5=cajon5+caracter
 				cajon5="BUSQUEDA POSICIONES="
-				
-	lista.append(cajon+cajon3+"="+cajon2+cajon4+cajon5+cajon6)	
-	lista_buscar.append(cajon6)		
-	print(lista)			
-			
+	
+
+	lista_numeros.append(int(cajon2))			
+	if cajon5=="BUSQUEDA POSICIONES=":
+		for x in lista_numeros:
+			intStr=int(cajon6)
+			contador_posicion += 1
+			if x==intStr:
+				posicion=posicion+str(contador_posicion-1)+","
+		if posicion=="":
+		    posicion="NO ENCONTRADO"    			   
+		cajon6=posicion
+	
+	if cajon3=="ORDENADOS":
+		ordenar=sorted(lista_numeros)
+		cajon2=str(ordenar)
+		lista_numeros.clear()
+
+
+	lista.append(str(contador)+". "+cajon+cajon3+"="+cajon2+cajon4+cajon5+cajon6)
+
+    
+
+
+
 
 
 
