@@ -1,12 +1,9 @@
 listaABC=['A','B','C','D','E','F','G','H','I','K','L','M','Ñ','O','P','Q','R','S','T','U','V',
            'W','X','Y','Z']
-lista=[]  
-lista_contador=[] 
-lista_identificador=[] 
-lista_numeros_global=[] 
-lista_ordenado=[] 
-lista_busqueda=[]
-numeros_busqueda=[]          
+lista=[]
+listas_ordenadas=[]
+lista_busquedas=[]  
+       
 
 def analizar(cadena,contador):
 	##array_identificador=cadena.split('=')
@@ -61,7 +58,6 @@ def analizar(cadena,contador):
 				cajon6=cajon6+caracter
 			else:	
 				cajon5="BUSQUEDA POSICIONES="
-	
 
 	lista_numeros.append(int(cajon2))			
 	if cajon5=="BUSQUEDA POSICIONES=":
@@ -71,7 +67,8 @@ def analizar(cadena,contador):
 			if x==intStr:
 				posicion=posicion+str(contador_posicion-1)+","
 		if posicion=="":
-		    posicion="NO ENCONTRADO"    			   
+			cajon2=str(lista_numeros)
+			posicion="NO ENCONTRADO"    			   
 		cajon6=posicion
 	
 	if cajon3=="ORDENADOS":
@@ -79,8 +76,14 @@ def analizar(cadena,contador):
 		cajon2=str(ordenar)
 		lista_numeros.clear()
 
-
+    
 	lista.append(str(contador)+". "+cajon+cajon3+"="+cajon2+cajon4+cajon5+cajon6)
+
+	if cajon3=="ORDENADOS":
+		listas_ordenadas.append(str(contador)+". "+cajon+cajon3+"="+cajon2)
+
+	if cajon5=="BUSQUEDA POSICIONES=" and posicion!="NO ENCONTRADO":
+		lista_busquedas.append(str(contador)+". "+cajon+cajon5+cajon6)
 
     
 
